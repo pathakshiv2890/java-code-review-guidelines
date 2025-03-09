@@ -77,33 +77,52 @@ Cursor provides powerful AI-assisted capabilities for code review and correction
    - Ask: "Why is this logging approach not recommended?"
    - Use explanations to improve team understanding
 
+4. **Review with module leads**:
+   - All review commits must be reviewed with respective module leads
+   - Test cases must cover the modified sections
+   - Include reviewer names in commit messages
+
+5. **Production branch policy**:
+   - Only merge and commit to main branch (production branches) after:
+     - Functional tests are complete
+     - Unit tests are complete
+     - Module lead approval is obtained
+   - Document test completion in merge requests
+
+## Responsibility and Accountability
+
+1. **Code ownership**:
+   - Developers committing code are considered primary owners of that code
+   - Reviewers share ownership and responsibility for the code they approve
+   - Both parties are accountable for the quality and maintainability of the code
+
+2. **Maintenance responsibilities**:
+   - Code authors and reviewers are responsible for:
+     - Debugging issues that arise in their code
+     - Maintaining the code as requirements evolve
+     - Addressing technical debt in their areas of ownership
+     - Responding to production incidents related to their code
+
+3. **Knowledge transfer**:
+   - Code owners must document complex implementations
+   - When transitioning projects, proper handover of code ownership must occur
+   - Historical context and design decisions should be documented
+
+4. **Continuous improvement**:
+   - Code owners should proactively refactor and improve their code
+   - Regular reviews of existing code should be scheduled
+   - Technical debt should be addressed systematically
+
+5. **AI-assisted code development**:
+   - When using AI tools to generate or edit code:
+     - Developers must thoroughly review and understand all AI-generated code
+     - Developers are responsible for explaining AI-generated code to module leads
+     - The use of AI tools does not reduce developer accountability for the code
+   - Before committing AI-assisted code:
+     - Verify correctness and adherence to project standards
+     - Be prepared to explain the implementation details and reasoning
+     - Ensure you can maintain the code without AI assistance in the future
+
 ## Quick Reference
 
-- For general code style: See `naming_and_style.md`
-- For API reviews: See `spring_best_practices.md`
-- For error handling: See `exception_handling.md`
-- For performance issues: See `performance.md`
-- For memory management: See `memory_leaks.md`
-- For code organization: See `reusability.md`
-- For code quality: See `static_code_analysis.md`
-- For input validation: See `validation.md`
-- For logging practices: See `logging.md`
-
-## Guidelines Focus
-
-- **Naming and Style**: Consistent naming conventions, code formatting, and readability
-- **Spring Best Practices**: Dependency injection, transaction management, REST API design
-- **Exception Handling**: Custom exceptions, try-catch blocks, error responses
-- **Performance**: Data structures, algorithms, resource optimization
-- **Memory Leaks**: Resource management, reference handling, caching strategies
-- **Reusability**: DRY principle, SOLID principles, modular design
-- **Static Code Analysis**: Null safety, code quality, complexity management
-- **Validation**: Input validation, boundary checks, defensive programming
-- **Logging**: Log levels, structured logging, secure logging practices
-
-## Contributing
-
-To add or modify guidelines:
-1. Create a new markdown file following the existing naming pattern
-2. Update this README.md to include the new guide
-3. Follow the template structure provided in `_template.md` 
+- For general code style: See `
