@@ -122,7 +122,3 @@ Cursor provides powerful AI-assisted capabilities for code review and correction
      - Verify correctness and adherence to project standards
      - Be prepared to explain the implementation details and reasoning
      - Ensure you can maintain the code without AI assistance in the future
-
-## Quick Reference
-
-- For general code style: See `
