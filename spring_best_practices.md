@@ -193,3 +193,99 @@ public class UserDTO {
     @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")
     private String password;
 }
+
+## 6. Project Structure
+
+### Multi-Module Architecture
+- ✅ Our project follows a modular architecture with separate API and Service modules
+
+### API Module
+- ✅ Contains all models, DTOs, and REST interfaces
+- ✅ Defines the contract for external consumers
+- ✅ Includes request/response wrappers
+- ✅ Contains OpenAPI/Swagger documentation
+
+```java
+// API Module Structure Example
+api-module/
+  ├── src/main/java/
+  │   └── com/company/project/
+  │       ├── api/
+  │       │   ├── UserApi.java         // REST interface with @RequestMapping
+  │       │   └── OrderApi.java
+  │       ├── model/
+  │       │   ├── UserDTO.java         // Data transfer objects
+  │       │   └── OrderDTO.java
+  │       └── wrapper/
+  │           ├── ResponseWrapper.java  // Standard response format
+  │           └── PagedResponse.java
+  └── pom.xml
+```
+
+### Service Module
+- ✅ Contains service interfaces and implementations
+- ✅ Includes DAO (Data Access Object) interfaces and implementations
+- ✅ Houses REST implementation classes
+- ✅ Implements business logic
+
+```java
+// Service Module Structure Example
+service-module/
+  ├── src/main/java/
+  │   └── com/company/project/
+  │       ├── rest/
+  │       │   ├── UserApiImpl.java     // Implements UserApi interface
+  │       │   └── OrderApiImpl.java
+  │       ├── service/
+  │       │   ├── UserService.java     // Service interface
+  │       │   ├── UserServiceImpl.java // Service implementation
+  │       │   ├── OrderService.java
+  │       │   └── OrderServiceImpl.java
+  │       └── dao/
+  │           ├── UserDao.java         // DAO interface
+  │           ├── UserDaoImpl.java     // DAO implementation
+  │           ├── OrderDao.java
+  │           └── OrderDaoImpl.java
+  └── pom.xml
+```
+
+### Best Practices for This Structure
+- ✅ Keep API interfaces clean and focused on contract definition
+- ✅ Implement proper separation of concerns between layers
+- ✅ Use dependency injection to wire components together
+- ✅ Ensure service implementations are properly tested
+
+```java
+// API Interface Example
+@RequestMapping("/api/v1/users")
+public interface UserApi {
+    @GetMapping("/{id}")
+    ResponseEntity<ResponseWrapper<UserDTO>> getUser(@PathVariable Long id);
+    
+    @PostMapping
+    ResponseEntity<ResponseWrapper<UserDTO>> createUser(@Valid @RequestBody UserDTO dto);
+}
+
+// REST Implementation Example
+@RestController
+public class UserApiImpl implements UserApi {
+    private final UserService userService;
+    
+    public UserApiImpl(UserService userService) {
+        this.userService = userService;
+    }
+    
+    @Override
+    public ResponseEntity<ResponseWrapper<UserDTO>> getUser(Long id) {
+        UserDTO user = userService.findById(id);
+        return ResponseEntity.ok(new ResponseWrapper<>(user));
+    }
+    
+    @Override
+    public ResponseEntity<ResponseWrapper<UserDTO>> createUser(UserDTO dto) {
+        UserDTO created = userService.createUser(dto);
+        return ResponseEntity
+            .status(HttpStatus.CREATED)
+            .body(new ResponseWrapper<>(created));
+    }
+}

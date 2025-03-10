@@ -33,6 +33,37 @@ params.put("orderId", "12345");
 throw new BusinessException("Order processing failed", params);
 ```
 
+### Custom Domain Exceptions
+- ✅ Don't limit yourself to just the provided domain exceptions
+- ✅ Create specific exceptions based on business scenarios when needed
+- ✅ Extend the base domain exceptions for consistency
+
+```java
+// Good - Creating specific business exceptions
+public class InsufficientFundsException extends BusinessException {
+    public InsufficientFundsException(String accountId, BigDecimal requested, BigDecimal available) {
+        super("Insufficient funds in account: " + accountId);
+        setGuiMessage("Your account doesn't have sufficient funds for this transaction");
+        setErrCode("ERR-FUNDS-1001");
+        
+        Map<String, String> params = new HashMap<>();
+        params.put("accountId", accountId);
+        params.put("requested", requested.toString());
+        params.put("available", available.toString());
+        setParams(params);
+    }
+}
+
+// Usage
+if (account.getBalance().compareTo(withdrawalAmount) < 0) {
+    throw new InsufficientFundsException(
+        account.getId(), 
+        withdrawalAmount, 
+        account.getBalance()
+    );
+}
+```
+
 ## 3. Layer-Specific Exception Handling
 
 ### DAO Layer
@@ -79,6 +110,33 @@ public void processOrder(Order order) {
     } catch (ResourceNotFoundException e) {
         // Handle not found specifically
         throw new BusinessException("Required resource not found", e);
+    }
+}
+
+// Bad - Service layer
+public void processOrder(Order order) {
+    try {
+        validateOrder(order);
+        orderDao.save(order);
+        notifyShipping(order);
+    } catch (Exception e) {
+        // Too generic exception handling
+        log.error("Error processing order", e);
+        // Swallowing the exception or returning null
+        return;
+    }
+}
+
+// Bad - Service layer
+public void processOrder(Order order) {
+    try {
+        validateOrder(order);
+        orderDao.save(order);
+        notifyShipping(order);
+    } catch (Exception e) {
+        // Both logging AND throwing - pick one
+        log.error("Error processing order", e);
+        throw new RuntimeException("Order processing failed", e);
     }
 }
 ```
