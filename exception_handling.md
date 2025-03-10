@@ -79,7 +79,7 @@ if (account.getBalance().compareTo(withdrawalAmount) < 0) {
 ### DAO Layer
 - ✅ Always throw exceptions, never handle them silently
 - ✅ Translate database exceptions to domain exceptions
-- ✅ Include entity information in exception messages
+- ✅ Include entity information in exception messages as well as in log messages
 
 ```java
 // Good - DAO layer
@@ -105,7 +105,7 @@ public User findById(Long id) {
 ### Service Layer
 - ✅ Handle exceptions based on business cases
 - ✅ Translate technical exceptions to business exceptions
-- ✅ Add business context to exceptions
+- ✅ Add business context to exceptions as well as in log messages
 
 ```java
 // Good - Service layer
