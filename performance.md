@@ -141,11 +141,39 @@ List<User> findPowerUsers(int count);
 ### Fetch Optimization
 - ✅ Use pagination for large result sets
 - ✅ Fetch only required data (avoid SELECT *)
+- ✅ Use stream processing with pagination for large datasets
+
 ```java
-// Pagination
+// Basic pagination
 Page<User> userPage = userRepository.findAll(
     PageRequest.of(0, 20, Sort.by("lastName").ascending())
 );
+
+// Stream processing with pagination for large datasets
+public void processLargeDataset() {
+    int pageSize = 1000;
+    int pageNumber = 0;
+    Page<Order> orderPage;
+    
+    do {
+        orderPage = orderRepository.findAll(PageRequest.of(pageNumber++, pageSize));
+        // Process each page
+        orderPage.getContent().forEach(this::processOrder);
+        
+        // Clear persistence context to free memory
+        entityManager.clear();
+    } while (orderPage.hasNext());
+}
+
+// Using JPA Stream for very large datasets
+@Transactional(readOnly = true)
+public void processWithStream() {
+    try (Stream<User> userStream = userRepository.streamAll()) {
+        userStream
+            .filter(User::isActive)
+            .forEach(this::processUser);
+    } // Stream automatically closed
+}
 
 // Projection for specific fields
 @Query("SELECT new com.example.UserSummary(u.id, u.name, u.email) FROM User u")
