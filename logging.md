@@ -188,4 +188,11 @@ try {
     // Or with ExceptionUtils
     logger.error("Stack trace: {}", ExceptionUtils.getStackTrace(e));
 }
-``` 
+```
+
+## 8. Avoid Unnecessary Logging
+
+- ✅ Don't log for expected business scenarios
+- ✅ Don't log exceptions that are part of normal flow
+- ✅ Avoid duplicate logging across layers
+
