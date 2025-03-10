@@ -61,21 +61,68 @@ private boolean permission;
 - ✅ Use UPPER_SNAKE_CASE
 - ✅ Include units in name when applicable
 - ✅ Group related constants in enum
+- ✅ Avoid magic strings/numbers, use constants instead
+- ✅ Don't create duplicate constants with different cases or formats
 ```java
 // Good
-private static final int MAX_RETRY_ATTEMPTS = 3;
-private static final long CACHE_EXPIRY_SECONDS = 3600;
-private static final String API_BASE_URL = "https://api.example.com";
-
-enum TimeUnit {
-    DAYS,
-    HOURS,
-    MINUTES
+public class OrderConstants {
+    private static final int MAX_RETRY_ATTEMPTS = 3;
+    private static final long CACHE_EXPIRY_SECONDS = 3600;
+    private static final String API_BASE_URL = "https://api.example.com";
+    private static final String ERROR_USER_NOT_FOUND = "User not found with ID: %s";
 }
 
-// Bad
-private static final int MAX = 3;
-private static final long EXPIRY = 3600;
+// Good - Using enum for related constants
+public enum TimeUnit {
+    DAYS(24),
+    HOURS(60),
+    MINUTES(60);
+
+    private final int value;
+
+    TimeUnit(int value) {
+        this.value = value;
+    }
+
+    public int getValue() {
+        return value;
+    }
+}
+
+// Bad - Magic strings and inconsistent naming
+public class UserProcessor {
+    public void processUser(String status) {
+        if (status.equals("ACTIVE")) {}  // Bad: Magic string
+        
+        private static final String Status_Active = "ACTIVE";  // Bad: Wrong case
+        private static final String STATUS_ACTIVE = "ACTIVE";  // Bad: Duplicate
+        private static final String statusActive = "ACTIVE";   // Bad: Wrong case
+    }
+}
+
+// Good - Proper constant usage
+public class UserStatus {
+    public static final String ACTIVE = "ACTIVE";
+    public static final String INACTIVE = "INACTIVE";
+    public static final String SUSPENDED = "SUSPENDED";
+    
+    public void processUser(String status) {
+        if (UserStatus.ACTIVE.equals(status)) {
+            // Process active user
+        }
+    }
+}
+
+// Good - Using enum instead of string constants
+public enum UserState {
+    ACTIVE,
+    INACTIVE,
+    SUSPENDED;
+    
+    public boolean isActive() {
+        return this == ACTIVE;
+    }
+}
 ```
 
 ### Packages
@@ -133,7 +180,7 @@ if (condition) doSomething();
 
 ### Comments
 - ✅ JavaDoc required for public APIs
-- ✅ Implementation comments explain WHY, not WHAT
+- ✅ Implementation comments explain WHY and WHAT
 - ✅ Keep comments updated with code changes
 ```java
 /**
