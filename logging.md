@@ -78,22 +78,6 @@ logging.file.name=application.log
 logging.file.max-size=10MB
 logging.file.max-history=7
 
-// Java code with MDC
-@Component
-public class LoggingFilter extends OncePerRequestFilter {
-    @Override
-    protected void doFilterInternal(HttpServletRequest request, 
-                                   HttpServletResponse response, 
-                                   FilterChain filterChain) {
-        try {
-            MDC.put("userId", getUserId(request));
-            MDC.put("requestId", request.getHeader("X-Request-ID"));
-            filterChain.doFilter(request, response);
-        } finally {
-            MDC.clear();
-        }
-    }
-}
 ```
 
 ## 4. Structured Logging
