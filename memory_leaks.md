@@ -6,15 +6,33 @@
 - ✅ Always close resources (connections, streams, files)
 - ✅ Use try-with-resources for all AutoCloseable objects
 ```java
-// Good
+// Good - Resources automatically closed
 try (Connection conn = dataSource.getConnection();
-     PreparedStatement stmt = conn.prepareStatement(SQL)) {
+     PreparedStatement stmt = conn.prepareStatement(SQL);
+     ResultSet rs = stmt.executeQuery()) {
     // Use resources
-}
+    while (rs.next()) {
+        // Process results
+    }
+} // All resources automatically closed here
 
-// Bad
-Connection conn = dataSource.getConnection();
-// No closing mechanism
+// Bad - Resources not properly closed
+Connection conn = null;
+PreparedStatement stmt = null;
+ResultSet rs = null;
+try {
+    conn = dataSource.getConnection();
+    stmt = conn.prepareStatement(SQL);
+    rs = stmt.executeQuery();
+    // Use resources
+} catch (SQLException e) {
+    throw new DatabaseException("Query failed", e);
+} finally {
+    // Manual closing - error-prone and verbose
+    if (rs != null) try { rs.close(); } catch (SQLException e) { }
+    if (stmt != null) try { stmt.close(); } catch (SQLException e) { }
+    if (conn != null) try { conn.close(); } catch (SQLException e) { }
+}
 ```
 
 ### Thread Management
