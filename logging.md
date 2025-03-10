@@ -80,31 +80,7 @@ logging.file.max-history=7
 
 ```
 
-## 4. Structured Logging
-
-- ✅ Use JSON format for logs in production
-- ✅ Include standard fields in all log entries
-- ✅ Enable easy log aggregation and searching
-
-```java
-// application.properties for JSON logging
-spring.application.name=order-service
-logging.pattern.console=%d{yyyy-MM-dd HH:mm:ss} %p %c{1} [%X{traceId},%X{spanId}] %m%n
-logging.level.root=INFO
-logging.level.com.company=DEBUG
-logging.logback.rollingpolicy.max-file-size=10MB
-logging.logback.rollingpolicy.max-history=7
-
-// Custom JSON appender in logback-spring.xml
-<appender name="JSON_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-    <encoder class="net.logstash.logback.encoder.LogstashEncoder">
-        <includeMdc>true</includeMdc>
-        <customFields>{"application":"${spring.application.name}"}</customFields>
-    </encoder>
-</appender>
-```
-
-## 5. Secure Logging
+## 4. Secure Logging
 
 - ✅ Never log sensitive information (passwords, tokens, PII)
 - ✅ Mask or hash sensitive data when needed
@@ -127,27 +103,8 @@ logger.debug("Authorization header: {}", authHeader); // Contains token
 System.out.println("Credit card: " + cardNumber); // Extremely bad practice
 ```
 
-## 6. Performance Considerations
 
-- ✅ Use guard clauses to avoid expensive logging operations
-- ✅ Consider async logging for high-throughput applications
-- ✅ Monitor log volume and adjust levels accordingly
-
-```java
-// Good - Guard clause for expensive debug logging
-if (logger.isDebugEnabled()) {
-    logger.debug("Complex object state: {}", generateExpensiveDebugInfo(object));
-}
-
-// Good - Async logging configuration in logback-spring.xml
-<appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
-    <appender-ref ref="FILE" />
-    <queueSize>512</queueSize>
-    <discardingThreshold>0</discardingThreshold>
-</appender>
-```
-
-## 7. Common Logging Mistakes
+## 5. Common Logging Mistakes
 
 - ✅ Using System.out.println() instead of proper logging
 - ✅ Logging at incorrect levels
@@ -174,7 +131,7 @@ try {
 }
 ```
 
-## 8. Avoid Unnecessary Logging
+## 6. Avoid Unnecessary Logging
 
 - ✅ Don't log for expected business scenarios
 - ✅ Don't log exceptions that are part of normal flow
