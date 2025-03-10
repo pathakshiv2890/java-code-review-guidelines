@@ -106,19 +106,38 @@ public User findById(Long id) {
 - ✅ Handle exceptions based on business cases
 - ✅ Translate technical exceptions to business exceptions
 - ✅ Add business context to exceptions as well as in log messages
+- ✅ Use custom domain exceptions where required, not generic ones
 
 ```java
-// Good - Service layer
+// Good - Service layer with custom exceptions
 public void processOrder(Order order) {
     try {
         validateOrder(order);
         orderDao.save(order);
         notifyShipping(order);
     } catch (ValidationException e) {
-        // Handle validation failure specifically
+        // Using custom domain exception
+        throw new OrderValidationException("Order validation failed for ID: " + order.getId(), e);
+    } catch (ResourceNotFoundException e) {
+        // Using custom domain exception with context
+        throw new OrderDependencyException("Required resource not found for order: " + order.getId(), e);
+    } catch (DataAccessException e) {
+        // Using custom domain exception for data access issues
+        throw new OrderPersistenceException("Failed to persist order: " + order.getId(), e);
+    }
+}
+
+// Bad - Service layer with generic exceptions
+public void processOrder(Order order) {
+    try {
+        validateOrder(order);
+        orderDao.save(order);
+        notifyShipping(order);
+    } catch (ValidationException e) {
+        // Using generic BusinessException instead of specific one
         throw new BusinessException("Order validation failed", e);
     } catch (ResourceNotFoundException e) {
-        // Handle not found specifically
+        // Using generic BusinessException instead of specific one
         throw new BusinessException("Required resource not found", e);
     }
 }
