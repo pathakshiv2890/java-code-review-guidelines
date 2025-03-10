@@ -33,7 +33,7 @@ System.out.println("User logged in: " + username); // Use logger instead
 
 - ✅ Include contextual information (IDs, timestamps, user info)
 - ✅ Use parameterized logging to avoid string concatenation
-- ✅ Include stack traces for exceptions
+- ✅ Include stack traces for exceptions if generic exception is caught
 - ✅ Use ExceptionUtils for better stack trace handling
 
 ```java
@@ -48,7 +48,7 @@ try {
     logger.error("Failed to process order {}: {}", 
         order.getId(), e.getMessage(), e);
     
-    // Alternative with Apache Commons ExceptionUtils
+    //  Apache Commons ExceptionUtils to be used instead of e.printStackTrace()
     logger.error("Failed to process order {}: {}", 
         order.getId(), ExceptionUtils.getStackTrace(e));
 }
