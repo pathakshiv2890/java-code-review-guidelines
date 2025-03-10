@@ -83,19 +83,15 @@ logging.file.max-history=7
 ## 4. Secure Logging
 
 - ✅ Never log sensitive information (passwords, tokens, PII)
-- ✅ Mask or hash sensitive data when needed
+- ✅ Instead if logging sensitive information, log the entity id and the field that contains the sensitive data
 - ✅ Be careful with exception messages that might contain sensitive data
 
 ```java
 // Good - Masking sensitive data
-logger.info("Processing payment for card: {}", maskCardNumber(cardNumber));
+logger.info("Processing payment for card of user {}", userName);
+// Bad - Logging sensitive information
 logger.debug("User details: {}", maskUserDetails(user));
 
-// Helper methods for masking
-private String maskCardNumber(String cardNumber) {
-    if (cardNumber == null || cardNumber.length() < 8) return "[INVALID CARD]";
-    return "XXXX-XXXX-XXXX-" + cardNumber.substring(cardNumber.length() - 4);
-}
 
 // Bad - Logging sensitive information
 logger.info("User password reset: {}", password); // Never log passwords
