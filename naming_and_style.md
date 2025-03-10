@@ -181,7 +181,7 @@ if (condition) doSomething();
 ### Comments
 - ✅ JavaDoc required for public APIs
 - ✅ Implementation comments explain WHY and WHAT
-- ✅ Keep comments updated with code changes
+- ✅ Keep relevant and reasonable comments updated with code changes
 ```java
 /**
  * Processes the order and notifies relevant parties.
