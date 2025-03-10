@@ -335,32 +335,3 @@ public class GlobalExceptionHandler {
     }
 }
 ```
-
-### Exception Flow Diagram
-
-```
-Service Layer                  REST Layer                    Global Handler
-┌─────────────┐                ┌─────────────┐               ┌─────────────┐
-│             │                │             │               │             │
-│  throw new  │                │ Controller  │               │ @Exception  │
-│ CustomExcep │───Propagate───▶│ doesn't     │───Capture────▶│ Handler     │
-│    tion     │                │ catch       │               │ methods     │
-│             │                │             │               │             │
-└─────────────┘                └─────────────┘               └──────┬──────┘
-                                                                    │
-                                                                    │
-                                                                    ▼
-                                                            ┌─────────────┐
-                                                            │ HTTP        │
-                                                            │ Response    │
-                                                            │ with error  │
-                                                            │ details     │
-                                                            └─────────────┘
-```
-
-### Benefits of This Approach
-- ✅ Clean separation of concerns
-- ✅ Centralized exception handling logic
-- ✅ Consistent error responses across the API
-- ✅ Service layer can focus on business logic without HTTP concerns
-- ✅ Controllers remain thin and focused on request/response handling
