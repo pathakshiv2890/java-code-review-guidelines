@@ -36,39 +36,82 @@ ExecutorService executor = Executors.newFixedThreadPool(10);
 
 ## 2. Reference Management
 
-### Static References
-- ✅ Avoid storing large objects in static fields
-- ✅ Clear static collections when no longer needed
-```java
-// Good - Using weak references
-private static Map<String, Object> cache = new WeakHashMap<>();
+### Collection Memory Leaks
+- ✅ Clear collections when no longer needed
+- ✅ Be careful with long-lived HashMaps and Lists
+- ✅ Remove items from collections after processing
+- ✅ Use appropriate collection sizes and types
 
-// Bad - Unbounded growth
-private static List<Object> items = new ArrayList<>();
-public void addItem(Object item) {
-    items.add(item); // Grows indefinitely
-}
-```
-
-### Collection Management
-- ✅ Remove items from collections when no longer needed
-- ✅ Use bounded collections where appropriate
 ```java
-// Good
-public void processItems(List<Item> items) {
-    Map<String, Item> processMap = new HashMap<>();
-    for (Item item : items) {
-        processMap.put(item.getId(), item);
+// Bad - Memory leak in HashMap
+public class UserCache {
+    private static final Map<String, User> userMap = new HashMap<>();
+    
+    public void addUser(String id, User user) {
+        userMap.put(id, user);  // Map keeps growing, never cleared
     }
-    // Process items
-    processMap.clear(); // Clear when done
 }
 
-// Bad
-private Map<String, Object> processedItems = new HashMap<>();
-public void processItem(Item item) {
-    processedItems.put(item.getId(), item); // Never cleared
+// Good - Proper HashMap management
+public class UserCache {
+    private final Map<String, User> userMap = new HashMap<>();
+    
+    public void addUser(String id, User user) {
+        userMap.put(id, user);
+    }
+    
+    public void removeUser(String id) {
+        userMap.remove(id);  // Remove when no longer needed
+    }
+    
+    public void clearCache() {
+        userMap.clear();  // Clear all entries when needed
+    }
 }
+
+// Bad - Memory leak in List
+public class OrderProcessor {
+    private List<Order> processedOrders = new ArrayList<>();
+    
+    public void processOrder(Order order) {
+        // Process the order
+        processedOrders.add(order);  // List keeps growing
+    }
+}
+
+// Good - Proper List management
+public class OrderProcessor {
+    private List<Order> currentOrders = new ArrayList<>();
+    
+    public void processOrder(Order order) {
+        currentOrders.add(order);
+        // Process the order
+        currentOrders.remove(order);  // Remove after processing
+    }
+    
+    // For batch processing
+    public void processBatch(List<Order> orders) {
+        logger.info("Processing batch of {} orders", orders.size());
+        // Process orders
+        currentOrders.clear();  // Clear after batch processing
+    }
+}
+
+### Common Collection Memory Leak Scenarios
+
+1. **Never removing items**:
+   - Adding items to a collection but never removing them
+   - Collections growing indefinitely over application lifetime
+
+2. **Forgotten references**:
+   - Keeping references to objects in collections after they're no longer needed
+   - Not clearing temporary processing collections
+
+3. **Static collections**:
+   - Using static collections that live for entire application lifetime
+   - Not managing the size of long-lived collections
+
+
 ```
 
 ## 3. Caching Strategies
