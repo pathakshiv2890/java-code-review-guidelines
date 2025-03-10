@@ -103,35 +103,7 @@ logger.debug("Authorization header: {}", authHeader); // Contains token
 System.out.println("Credit card: " + cardNumber); // Extremely bad practice
 ```
 
-
-## 5. Common Logging Mistakes
-
-- ✅ Using System.out.println() instead of proper logging
-- ✅ Logging at incorrect levels
-- ✅ Catching exceptions without logging them
-- ✅ Logging sensitive information
-
-```java
-// Bad practices to avoid
-System.out.println("Debug info: " + debugInfo); // Use logger instead
-
-try {
-    riskyOperation();
-} catch (Exception e) {
-    // Silent catch - no logging
-}
-
-// Good alternative
-try {
-    riskyOperation();
-} catch (Exception e) {
-    logger.error("Failed during risky operation", e);
-    // Or with ExceptionUtils
-    logger.error("Stack trace: {}", ExceptionUtils.getStackTrace(e));
-}
-```
-
-## 6. Avoid Unnecessary Logging
+## 5. Avoid Unnecessary Logging
 
 - ✅ Don't log for expected business scenarios
 - ✅ Don't log exceptions that are part of normal flow
