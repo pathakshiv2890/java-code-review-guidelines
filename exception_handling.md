@@ -41,14 +41,14 @@ throw new BusinessException("Order processing failed", params);
 
 ```java
 // Microservice-specific exceptions (create in your microservice package)
-com.enttribe.payment.exception.InsufficientFundsException
-com.enttribe.order.exception.OrderAlreadyProcessedException
-com.enttribe.user.exception.UserLockedException
+com.enttribe.exception.payment.InsufficientFundsException
+com.enttribe.exception.order.OrderAlreadyProcessedException
+com.enttribe.exception.user.UserLockedException
 ```
 
 ```java
 // Good - Creating specific business exceptions
-package com.enttribe.payment.exception;
+package com.enttribe.exception.payment;
 
 public class InsufficientFundsException extends BusinessException {
     public InsufficientFundsException(String accountId, BigDecimal requested, BigDecimal available) {
