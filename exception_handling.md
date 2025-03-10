@@ -37,9 +37,19 @@ throw new BusinessException("Order processing failed", params);
 - ✅ Don't limit yourself to just the provided domain exceptions
 - ✅ Create specific exceptions based on business scenarios when needed
 - ✅ Extend the base domain exceptions for consistency
+- ✅ Core exceptions come from the core jar, but create microservice-specific exceptions in your microservice package
+
+```java
+// Microservice-specific exceptions (create in your microservice package)
+com.enttribe.payment.exception.InsufficientFundsException
+com.enttribe.order.exception.OrderAlreadyProcessedException
+com.enttribe.user.exception.UserLockedException
+```
 
 ```java
 // Good - Creating specific business exceptions
+package com.enttribe.payment.exception;
+
 public class InsufficientFundsException extends BusinessException {
     public InsufficientFundsException(String accountId, BigDecimal requested, BigDecimal available) {
         super("Insufficient funds in account: " + accountId);
