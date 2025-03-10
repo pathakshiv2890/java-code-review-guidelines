@@ -90,7 +90,7 @@ logging.file.max-history=7
 // Good - Masking sensitive data
 logger.info("Processing payment for card of user {}", userName);
 // Bad - Logging sensitive information
-logger.debug("User details: {}", maskUserDetails(user));
+logger.debug("Card Numebr: {}", cardNumber);
 
 
 // Bad - Logging sensitive information
