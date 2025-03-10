@@ -242,7 +242,7 @@ try {
 } catch (Exception e) {  // Too generic
     log.error("Error", e);
 }
-
+```
 
 ## 5. Global Exception Handling
 
