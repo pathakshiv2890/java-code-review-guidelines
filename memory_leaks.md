@@ -52,7 +52,7 @@ ExecutorService executor = Executors.newFixedThreadPool(10);
 // No shutdown
 ```
 
-## 2. Reference Management
+## 2. Collection Memory Leaks
 
 ### Collection Memory Leaks
 - ✅ Clear collections when no longer needed
@@ -61,8 +61,10 @@ ExecutorService executor = Executors.newFixedThreadPool(10);
 - ✅ Use appropriate collection sizes and types
 
 ```java
-// Bad - Memory leak in HashMap
+// Bad - Memory leak in static HashMap
 public class UserCache {
+    // Static collections should only be used when data truly needs to be shared across all instances
+    // For instance-level caching, use instance variables instead
     private static final Map<String, User> userMap = new HashMap<>();
     
     public void addUser(String id, User user) {
@@ -70,8 +72,9 @@ public class UserCache {
     }
 }
 
-// Good - Proper HashMap management
+// Good - Instance level caching with proper management
 public class UserCache {
+    // Instance-level map - each instance has its own cache
     private final Map<String, User> userMap = new HashMap<>();
     
     public void addUser(String id, User user) {
@@ -87,31 +90,19 @@ public class UserCache {
     }
 }
 
-// Bad - Memory leak in List
-public class OrderProcessor {
-    private List<Order> processedOrders = new ArrayList<>();
+// Good - Static cache with proper management (when sharing across instances is required)
+public class GlobalUserCache {
+    // Static cache with size limit and cleanup mechanism
+    private static final int MAX_ENTRIES = 1000;
+    private static final Map<String, User> globalUserMap = new LinkedHashMap<>(MAX_ENTRIES + 1, .75F, true) {
+        @Override
+        protected boolean removeEldestEntry(Map.Entry<String, User> eldest) {
+            return size() > MAX_ENTRIES;
+        }
+    };
     
-    public void processOrder(Order order) {
-        // Process the order
-        processedOrders.add(order);  // List keeps growing
-    }
-}
-
-// Good - Proper List management
-public class OrderProcessor {
-    private List<Order> currentOrders = new ArrayList<>();
-    
-    public void processOrder(Order order) {
-        currentOrders.add(order);
-        // Process the order
-        currentOrders.remove(order);  // Remove after processing
-    }
-    
-    // For batch processing
-    public void processBatch(List<Order> orders) {
-        logger.info("Processing batch of {} orders", orders.size());
-        // Process orders
-        currentOrders.clear();  // Clear after batch processing
+    public static void addUser(String id, User user) {
+        globalUserMap.put(id, user);  // Automatically removes oldest entry if size exceeds MAX_ENTRIES
     }
 }
 
@@ -128,9 +119,6 @@ public class OrderProcessor {
 3. **Static collections**:
    - Using static collections that live for entire application lifetime
    - Not managing the size of long-lived collections
-
-
-```
 
 ## 3. Caching Strategies
 
@@ -150,23 +138,6 @@ LoadingCache<Key, Value> cache = CacheBuilder.newBuilder()
 
 // Bad
 private Map<String, ExpensiveObject> cache = new HashMap<>(); // Unbounded
-```
-
-### Listener Management
-- ✅ Unregister listeners and callbacks when no longer needed
-- ✅ Use weak references for long-lived listeners
-```java
-// Good
-button.addActionListener(new ActionListener() {
-    public void actionPerformed(ActionEvent e) {
-        // Handle event
-    }
-});
-// Later
-button.removeActionListener(listener);
-
-// Bad
-someService.addListener(this); // Never removed
 ```
 
 ## 4. Common Patterns to Avoid
