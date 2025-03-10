@@ -104,4 +104,50 @@ System.out.println("Credit card: " + cardNumber); // Extremely bad practice
 - ✅ Don't log for expected business scenarios
 - ✅ Don't log exceptions that are part of normal flow
 - ✅ Avoid duplicate logging across layers
+- ✅ Be cautious with logging in loops and high-frequency operations
+- ✅ Regularly review and clean up unnecessary logging statements
+
+### Common Unnecessary Logging Scenarios
+
+```java
+// Bad - Logging in loops
+for (Order order : orders) {
+    logger.info("Processing order: {}", order.getId()); // Creates excessive logs
+    processOrder(order);
+}
+
+// Good - Log summary instead
+logger.info("Processing {} orders", orders.size());
+for (Order order : orders) {
+    processOrder(order);
+}
+
+// Bad - Logging normal business conditions
+if (user == null) {
+    logger.error("User not found"); // Not an error, just a normal condition
+    throw new ResourceNotFoundException("User not found");
+}
+
+// Good - No logging for normal conditions
+if (user == null) {
+    throw new ResourceNotFoundException("User not found");
+}
+
+// Bad - Logging before and after every operation
+logger.debug("Starting to save user");
+userRepository.save(user);
+logger.debug("User saved successfully"); // Excessive logging
+
+// Good - Log only when necessary
+userRepository.save(user);
+```
+
+### Logging Review Checklist
+
+- ✅ Are we logging ResourceNotFoundException or other expected exceptions?
+- ✅ Are we logging inside loops or high-frequency methods?
+- ✅ Are we logging the same information at multiple layers?
+- ✅ Are we logging routine operations that don't provide troubleshooting value?
+- ✅ Are we logging both before and after routine operations?
+- ✅ Are we using appropriate log levels for the information?
 
