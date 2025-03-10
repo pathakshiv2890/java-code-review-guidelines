@@ -182,7 +182,9 @@ if (condition) doSomething();
 - ✅ JavaDoc required for public APIs
 - ✅ Implementation comments explain WHY and WHAT
 - ✅ Keep relevant and reasonable comments updated with code changes
+- ✅ Avoid unnecessary or obvious comments
 ```java
+// Good - Explains complex logic
 /**
  * Processes the order and notifies relevant parties.
  * 
@@ -191,7 +193,33 @@ if (condition) doSomething();
  * @throws OrderProcessingException if validation fails
  */
 public boolean processOrder(Order order) {
-    // Validate before processing to prevent invalid state
+    // Using optimistic locking to prevent concurrent modifications
     validateOrder(order);
     return true;
+}
+
+// Bad - Unnecessary/obvious comments
+public class UserService {
+    // Constructor
+    public UserService() {}  // Don't state the obvious
+    
+    // This method gets user by id
+    public User getUser(Long id) {  // Method name already tells this
+        // Create new user object
+        User user = new User();  // Obvious what this does
+        
+        // Set the user id
+        user.setId(id);  // Don't explain basic operations
+        
+        // Return the user
+        return user;  // Don't comment returns
+    }
+    
+    // This is a private method
+    private void helperMethod() {  // Don't comment visibility
+        // Loop through list
+        for (int i = 0; i < 10; i++) {  // Basic loops don't need comments
+            doSomething();
+        }
+    }
 }
