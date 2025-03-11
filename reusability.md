@@ -2,8 +2,8 @@
 
 ## 1. DRY Principle (Don't Repeat Yourself)
 
-- ✅ Extract repeated logic into reusable methods or utility classes
-- ✅ Use template methods for common workflows with variable steps
+- Extract repeated logic into reusable methods or utility classes
+- Use template methods for common workflows with variable steps
 ```java
 // Good - Reusable utility method
 public class StringUtils {
@@ -23,9 +23,9 @@ public String getEmployeeName(Employee employee) {
 
 ## 2. SOLID Principles
 
-- ✅ **Single Responsibility**: One class, one purpose
-- ✅ **Open/Closed**: Extend functionality without modifying existing code
-- ✅ **Dependency Inversion**: Depend on abstractions, not implementations
+- **Single Responsibility**: One class, one purpose
+- **Open/Closed**: Extend functionality without modifying existing code
+- **Dependency Inversion**: Depend on abstractions, not implementations
 ```java
 // Good - Single responsibility & abstractions
 public interface PaymentProcessor {
@@ -47,9 +47,9 @@ public class PaymentService {
 
 ## 3. Modular Design
 
-- ✅ Keep methods under 30 lines and focused on one task
-- ✅ Favor composition over inheritance
-- ✅ Build complex behavior from simple, reusable components
+- Keep methods under 30 lines and focused on one task
+- Favor composition over inheritance
+- Build complex behavior from simple, reusable components
 ```java
 // Good - Composition
 public class ReportGenerator {
@@ -66,9 +66,9 @@ public class ReportGenerator {
 
 ## 4. Design Patterns for Reusability
 
-- ✅ **Factory Pattern**: Hide complex object creation
-- ✅ **Strategy Pattern**: Make algorithms interchangeable
-- ✅ **Builder Pattern**: Construct complex objects step by step
+- **Factory Pattern**: Hide complex object creation
+- **Strategy Pattern**: Make algorithms interchangeable
+- **Builder Pattern**: Construct complex objects step by step
 ```java
 // Factory pattern example
 public class ConnectionFactory {

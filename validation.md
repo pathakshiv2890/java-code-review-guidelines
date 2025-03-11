@@ -2,8 +2,8 @@
 
 ## 1. Null Validation
 
-- ✅ Validate null inputs in public APIs and constructors
-- ✅ Use explicit null checks with clear error messages
+- Validate null inputs in public APIs and constructors
+- Use explicit null checks with clear error messages
 ```java
 // Good - Explicit null check
 public void processUser(User user) {
@@ -25,8 +25,8 @@ public void processUser(User user) {
 
 ## 2. Input Validation
 
-- ✅ Reject invalid data (empty strings, negative values)
-- ✅ Validate early and fail fast
+- Reject invalid data (empty strings, negative values)
+- Validate early and fail fast
 ```java
 // Good - Comprehensive validation
 public void transferMoney(Account source, Account target, BigDecimal amount) {
@@ -48,8 +48,8 @@ public void transferMoney(Account source, Account target, BigDecimal amount) {
 
 ## 3. Boundary Validation
 
-- ✅ Check array/collection bounds before access
-- ✅ Validate ranges and limits
+- Check array/collection bounds before access
+- Validate ranges and limits
 ```java
 // Good - Boundary checks
 public String getItem(List<String> items, int index) {
@@ -73,8 +73,8 @@ public String getItem(List<String> items, int index) {
 
 ## 4. Bean Validation
 
-- ✅ Use Bean Validation annotations for declarative validation
-- ✅ Create custom validators for complex rules
+- Use Bean Validation annotations for declarative validation
+- Create custom validators for complex rules
 ```java
 // Good - Bean Validation
 public class User {
@@ -107,8 +107,8 @@ public class UserController {
 
 ## 5. Defensive Programming
 
-- ✅ Validate preconditions before operations
-- ✅ Check state invariants
+- Validate preconditions before operations
+- Check state invariants
 ```java
 // Good - Precondition checks
 public class OrderProcessor {
@@ -133,9 +133,9 @@ public class OrderProcessor {
 
 ## 6. Validation Best Practices
 
-- ✅ Provide clear error messages with context
-- ✅ Validate at system boundaries (API endpoints, external interfaces)
-- ✅ Use domain-specific exceptions for validation failures
+- Provide clear error messages with context
+- Validate at system boundaries (API endpoints, external interfaces)
+- Use domain-specific exceptions for validation failures
 ```java
 // Good - Domain-specific exceptions
 public class AccountService {

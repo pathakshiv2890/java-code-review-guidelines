@@ -3,9 +3,8 @@
 ## 1. Data Structures
 
 ### Collection Selection
-- ✅ Choose appropriate data structures based on access patterns
-- ✅ Consider time complexity for common operations
-```java
+- Choose appropriate data structures based on access patterns
+- Consider time complexity for common operations```java
 // Random access needs
 List<User> users = new ArrayList<>();  // O(1) access by index
 
@@ -30,8 +29,8 @@ BlockingQueue<Task> taskQueue = new LinkedBlockingQueue<>(100);  // Bounded
 ```
 
 ### Collection Sizing
-- ✅ Initialize collections with expected capacity when known
-- ✅ Use specialized collections for memory efficiency
+- Initialize collections with expected capacity when known
+- Use specialized collections for memory efficiency
 ```java
 // Preallocated capacity
 List<String> items = new ArrayList<>(1000);  // Avoids incremental resizing
@@ -66,8 +65,8 @@ Map<Department, List<Employee>> byDept = employees.stream()
 ```
 
 ### Parallel Processing
-- ✅ Use parallel streams for CPU-intensive operations on large datasets
-- ✅ Avoid parallel streams for I/O-bound or small datasets
+- Use parallel streams for CPU-intensive operations on large datasets
+- Avoid parallel streams for I/O-bound or small datasets
 ```java
 // Good use of parallel streams (CPU-intensive, large dataset)
 long count = largeList.parallelStream()
@@ -82,9 +81,9 @@ list.parallelStream()
 ## 3. Virtual Threads (Java 21)
 
 ### Thread Management
-- ✅ Use virtual threads for I/O-bound operations
-- ✅ Avoid virtual threads for CPU-intensive tasks
-- ✅ Don't overuse virtual threads - use only when concurrent I/O operations are needed
+- Use virtual threads for I/O-bound operations
+- Avoid virtual threads for CPU-intensive tasks
+- Don't overuse virtual threads - use only when concurrent I/O operations are needed
 ```java
 // Good - I/O bound tasks with virtual threads
 @Service
@@ -123,8 +122,8 @@ public void simpleProcess() {
 ```
 
 ### Structured Concurrency
-- ✅ Use structured concurrency for managing virtual thread lifecycles
-- ✅ Avoid manual thread management
+- Use structured concurrency for managing virtual thread lifecycles
+- Avoid manual thread management
 ```java
 // Good - Structured concurrency
 try (var scope = new StructuredTaskScope.ShutdownOnFailure()) {
@@ -139,10 +138,9 @@ try (var scope = new StructuredTaskScope.ShutdownOnFailure()) {
 ```
 
 ## 4. Database Access Optimization
-
 ### Query Optimization
-- ✅ Use named queries for frequently executed queries
-- ✅ Use native queries for performance-critical operations
+- Use named queries for frequently executed queries
+- Use native queries for performance-critical operations
 ```java
 // Named query (JPA)
 @NamedQuery(
@@ -163,9 +161,9 @@ List<User> findPowerUsers(int count);
 ```
 
 ### Fetch Optimization
-- ✅ Use pagination for large result sets
-- ✅ Fetch only required data (avoid SELECT *)
-- ✅ Use stream processing with pagination for large datasets
+- Use pagination for large result sets
+- Fetch only required data (avoid SELECT *)
+- Use stream processing with pagination for large datasets
 
 ```java
 // Basic pagination
@@ -205,8 +203,8 @@ List<UserSummary> findAllUserSummaries();
 ```
 
 ### Batch Operations
-- ✅ Use batch inserts/updates for multiple operations
-- ✅ Set appropriate batch size
+- Use batch inserts/updates for multiple operations
+- Set appropriate batch size
 ```java
 // Batch inserts with JdbcTemplate
 jdbcTemplate.batchUpdate(
@@ -235,8 +233,8 @@ public JpaProperties jpaProperties() {
 ## 5. Loops and Iterations
 
 ### Efficient Looping
-- ✅ Avoid nested loops when possible
-- ✅ Minimize work inside loops
+- Avoid nested loops when possible
+- Minimize work inside loops
 ```java
 // Precompute outside loop
 int size = list.size();
@@ -251,8 +249,8 @@ for (User user : users) {  // Cleaner than iterator
 ```
 
 ### String Operations
-- ✅ Use StringBuilder for string concatenation in loops
-- ✅ Avoid creating temporary strings
+- Use StringBuilder for string concatenation in loops
+-  Avoid creating temporary strings
 ```java
 // Good
 StringBuilder sb = new StringBuilder();
@@ -271,8 +269,8 @@ for (String item : items) {
 ## 6. Resource Optimization
 
 ### Object Creation
-- ✅ Minimize object creation in critical paths
-- ✅ Reuse objects when appropriate
+- Minimize object creation in critical paths
+- Reuse objects when appropriate
 ```java
 // Reuse objects
 private final DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
@@ -289,8 +287,8 @@ try (var obj = pool.borrowObject()) {
 ```
 
 ### Memory Management
-- ✅ Use primitive arrays instead of boxed types when possible
-- ✅ Consider off-heap storage for very large datasets
+- Use primitive arrays instead of boxed types when possible
+- Consider off-heap storage for very large datasets
 ```java
 // Primitive arrays vs boxed collections
 int[] primitiveArray = new int[1000];  // More efficient

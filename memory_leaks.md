@@ -3,8 +3,8 @@
 ## 1. Resource Management
 
 ### Closeable Resources
-- ✅ Always close resources (connections, streams, files)
-- ✅ Use try-with-resources for all AutoCloseable objects
+-  Always close resources (connections, streams, files)
+-  Use try-with-resources for all AutoCloseable objects
 ```java
 // Good - Resources automatically closed
 try (Connection conn = dataSource.getConnection();
@@ -36,8 +36,8 @@ try {
 ```
 
 ### Thread Management
-- ✅ Properly shut down thread pools and executors
-- ✅ Avoid creating threads without lifecycle management
+- Properly shut down thread pools and executors
+- Avoid creating threads without lifecycle management
 ```java
 // Good
 ExecutorService executor = Executors.newFixedThreadPool(10);
@@ -55,10 +55,10 @@ ExecutorService executor = Executors.newFixedThreadPool(10);
 ## 2. Collection Memory Leaks
 
 ### Collection Memory Leaks
-- ✅ Clear collections when no longer needed
-- ✅ Be careful with long-lived HashMaps and Lists
-- ✅ Remove items from collections after processing
-- ✅ Use appropriate collection sizes and types
+- Clear collections when no longer needed
+- Be careful with long-lived HashMaps and Lists
+- Remove items from collections after processing
+- Use appropriate collection sizes and types
 
 ```java
 // Bad - Memory leak in static HashMap
@@ -123,8 +123,8 @@ public class GlobalUserCache {
 ## 3. Caching Strategies
 
 ### Cache Implementation
-- ✅ Use WeakHashMap for memory-sensitive caches
-- ✅ Implement size limits and eviction policies
+- Use WeakHashMap for memory-sensitive caches
+- Implement size limits and eviction policies
 ```java
 // Good
 LoadingCache<Key, Value> cache = CacheBuilder.newBuilder()
@@ -143,8 +143,8 @@ private Map<String, ExpensiveObject> cache = new HashMap<>(); // Unbounded
 ## 4. Common Patterns to Avoid
 
 ### Inner Class References
-- ✅ Be careful with non-static inner classes (they hold reference to outer class)
-- ✅ Use static inner classes when outer class reference isn't needed
+- Be careful with non-static inner classes (they hold reference to outer class)
+-  Use static inner classes when outer class reference isn't needed
 ```java
 // Good
 private static class StaticHelper {
@@ -158,8 +158,8 @@ private class NonStaticHelper {
 ```
 
 ### ThreadLocal Usage
-- ✅ Always clean up ThreadLocal variables
-- ✅ Use try-finally to ensure cleanup
+- Always clean up ThreadLocal variables
+- Use try-finally to ensure cleanup
 ```java
 // Good
 ThreadLocal<Resource> resourceHolder = new ThreadLocal<>();

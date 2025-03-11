@@ -2,11 +2,11 @@
 
 ## 1. Key Principles
 
-- ✅ Use domain-specific exceptions like `BusinessException` instead of generic ones
-- ✅ Catch specific exceptions, not `Exception` or `Throwable`
-- ✅ Always use try-with-resources for closeable resources
-- ✅ Either log OR throw (not both) at the same level
-- ✅ Include context in exception messages
+- Use domain-specific exceptions like `BusinessException` instead of generic ones
+- Catch specific exceptions, not `Exception` or `Throwable`
+- Always use try-with-resources for closeable resources
+- Either log OR throw (not both) at the same level
+- Include context in exception messages
 
 ## 2. Enterprise Exception Structure
 
@@ -34,10 +34,10 @@ throw new BusinessException("Order processing failed", params);
 ```
 
 ### Custom Domain Exceptions
-- ✅ Don't limit yourself to just the provided domain exceptions
-- ✅ Create specific exceptions based on business scenarios when needed
-- ✅ Extend the base domain exceptions for consistency
-- ✅ Core exceptions come from the core jar, but create microservice-specific exceptions in your microservice package
+- Don't limit yourself to just the provided domain exceptions
+- Create specific exceptions based on business scenarios when needed
+- Extend the base domain exceptions for consistency
+- Core exceptions come from the core jar, but create microservice-specific exceptions in your microservice package
 
 ```java
 // Microservice-specific exceptions (create in your microservice package)
@@ -77,9 +77,9 @@ if (account.getBalance().compareTo(withdrawalAmount) < 0) {
 ## 3. Layer-Specific Exception Handling
 
 ### DAO Layer
-- ✅ Always throw exceptions, never handle them silently
-- ✅ Translate database exceptions to domain exceptions
-- ✅ Include entity information in exception messages as well as in log messages
+- Always throw exceptions, never handle them silently
+- Translate database exceptions to domain exceptions
+- Include entity information in exception messages as well as in log messages
 
 ```java
 // Good - DAO layer
@@ -103,10 +103,10 @@ public User findById(Long id) {
 ```
 
 ### Service Layer
-- ✅ Handle exceptions based on business cases
-- ✅ Translate technical exceptions to business exceptions
-- ✅ Add business context to exceptions as well as in log messages
-- ✅ Use custom domain exceptions where required, not generic ones
+-  Handle exceptions based on business cases
+- Translate technical exceptions to business exceptions
+- Add business context to exceptions as well as in log messages
+- Use custom domain exceptions where required, not generic ones
 
 ```java
 // Good - Service layer with custom exceptions
@@ -171,10 +171,10 @@ public void processOrder(Order order) {
 ```
 
 ### REST Layer
-- ✅ Let global exception handlers manage exceptions
-- ✅ Add request context to exceptions when needed
-- ✅ Don't catch exceptions unless adding value
-- ✅ Throw specific custom domain exceptions when validation fails at the controller level
+- Let global exception handlers manage exceptions
+- Add request context to exceptions when needed
+- Don't catch exceptions unless adding value
+- Throw specific custom domain exceptions when validation fails at the controller level
 
 ```java
 // Good - REST layer with custom exceptions if needed specifically for the controller
@@ -280,9 +280,9 @@ public class GlobalExceptionHandler {
 ## 6. Exception Flow from Service to REST Response
 
 ### Service to REST Exception Propagation
-- ✅ Service layer exceptions should propagate naturally to the REST layer
-- ✅ REST controllers should not catch service exceptions (unless adding context)
-- ✅ Global exception handlers will automatically convert exceptions to appropriate HTTP responses
+- Service layer exceptions should propagate naturally to the REST layer
+- REST controllers should not catch service exceptions (unless adding context)
+- Global exception handlers will automatically convert exceptions to appropriate HTTP responses
 
 ```java
 // Service layer throws custom domain exception

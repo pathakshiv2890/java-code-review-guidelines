@@ -3,10 +3,10 @@
 ## 1. Naming Conventions
 
 ### Classes and Interfaces
-- ✅ Use PascalCase
-- ✅ Use nouns or noun phrases
-- ✅ Be descriptive and avoid abbreviations
-- ✅ Remove "I" prefix from interfaces
+- Use PascalCase
+- Use nouns or noun phrases
+- Be descriptive and avoid abbreviations
+- Remove "I" prefix from interfaces
 ```java
 // Good
 public class UserService
@@ -20,10 +20,10 @@ public interface IPaymentGateway
 ```
 
 ### Methods
-- ✅ Use camelCase
-- ✅ Start with verbs
-- ✅ Be descriptive of the action
-- ✅ Follow common prefixes: get/set/is/has/should
+- Use camelCase
+- Start with verbs
+- Be descriptive of the action
+- Follow common prefixes: get/set/is/has/should
 ```java
 // Good
 public void processOrder(Order order)
@@ -38,10 +38,10 @@ public boolean checkIfValid(Payment p)
 ```
 
 ### Variables
-- ✅ Use camelCase
-- ✅ Be meaningful and descriptive
-- ✅ Collections should indicate plurality
-- ✅ Boolean variables should ask a question
+- Use camelCase
+- Be meaningful and descriptive
+- Collections should indicate plurality
+- Boolean variables should ask a question
 ```java
 // Good
 private final UserRepository userRepository;
@@ -58,11 +58,11 @@ private boolean permission;
 ```
 
 ### Constants
-- ✅ Use UPPER_SNAKE_CASE
-- ✅ Include units in name when applicable
-- ✅ Group related constants in enum
-- ✅ Avoid magic strings/numbers, use constants instead
-- ✅ Don't create duplicate constants with different cases or formats
+- Use UPPER_SNAKE_CASE
+- Include units in name when applicable
+- Group related constants in enum
+- Avoid magic strings/numbers, use constants instead
+- Don't create duplicate constants with different cases or formats
 ```java
 // Good
 public class OrderConstants {
@@ -126,9 +126,9 @@ public enum UserState {
 ```
 
 ### Packages
-- ✅ Use lowercase
-- ✅ Use reverse domain name convention
-- ✅ Use meaningful hierarchy
+- Use lowercase
+- Use reverse domain name convention
+- Use meaningful hierarchy
 ```java
 // Good
 com.company.module.feature
@@ -155,19 +155,19 @@ com.company.misc
 10. Inner classes/interfaces
 
 ### Method Organization
-- ✅ Maximum 30 lines per method
-- ✅ Single responsibility principle
-- ✅ Related methods should be grouped
-- ✅ Override methods should be kept together
+- Maximum 30 lines per method
+- Single responsibility principle
+- Related methods should be grouped
+- Override methods should be kept together
 
 ## 3. Code Style
 
 ### Formatting
-- ✅ Use 4 spaces for indentation (not tabs)
-- ✅ Maximum line length: 120 characters
-- ✅ One blank line between methods
-- ✅ No trailing whitespace
-- ✅ Always use braces, even for single-line blocks
+- Use 4 spaces for indentation (not tabs)
+- Maximum line length: 120 characters
+- One blank line between methods
+- No trailing whitespace
+- Always use braces, even for single-line blocks
 ```java
 // Good
 if (condition) {
@@ -179,10 +179,10 @@ if (condition) doSomething();
 ```
 
 ### Comments
-- ✅ JavaDoc required for public APIs
-- ✅ Implementation comments explain WHY and WHAT
-- ✅ Keep relevant and reasonable comments updated with code changes
-- ✅ Avoid unnecessary or obvious comments
+- JavaDoc required for public APIs
+- Implementation comments explain WHY and WHAT
+- Keep relevant and reasonable comments updated with code changes
+- Avoid unnecessary or obvious comments
 ```java
 // Good - Explains complex logic
 /**

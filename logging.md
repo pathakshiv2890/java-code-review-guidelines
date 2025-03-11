@@ -82,9 +82,9 @@ logging.file.max-history=7
 
 ## 4. Secure Logging
 
-- ✅ Never log sensitive information (passwords, tokens, PII)
-- ✅ Instead if logging sensitive information, log the entity id and the field that contains the sensitive data
-- ✅ Be careful with exception messages that might contain sensitive data
+- Never log sensitive information (passwords, tokens, PII)
+- Instead if logging sensitive information, log the entity id and the field that contains the sensitive data
+- Be careful with exception messages that might contain sensitive data
 
 ```java
 // Good - Masking sensitive data
@@ -101,11 +101,11 @@ System.out.println("Credit card: " + cardNumber); // Extremely bad practice
 
 ## 5. Avoid Unnecessary Logging
 
-- ✅ Don't log for expected business scenarios
-- ✅ Don't log exceptions that are part of normal flow
-- ✅ Avoid duplicate logging across layers
-- ✅ Be cautious with logging in loops and high-frequency operations
-- ✅ Regularly review and clean up unnecessary logging statements
+- Don't log for expected business scenarios
+- Don't log exceptions that are part of normal flow
+- Avoid duplicate logging across layers
+- Be cautious with logging in loops and high-frequency operations
+- Regularly review and clean up unnecessary logging statements
 
 ### Common Unnecessary Logging Scenarios
 
@@ -144,10 +144,10 @@ userRepository.save(user);
 
 ### Logging Review Checklist
 
-- ✅ Are we logging ResourceNotFoundException or other expected exceptions?
-- ✅ Are we logging inside loops or high-frequency methods?
-- ✅ Are we logging the same information at multiple layers?
-- ✅ Are we logging routine operations that don't provide troubleshooting value?
-- ✅ Are we logging both before and after routine operations?
-- ✅ Are we using appropriate log levels for the information?
+- Are we logging ResourceNotFoundException or other expected exceptions?
+- Are we logging inside loops or high-frequency methods?
+- Are we logging the same information at multiple layers?
+- Are we logging routine operations that don't provide troubleshooting value?
+- Are we logging both before and after routine operations?
+- Are we using appropriate log levels for the information?
 
