@@ -45,8 +45,8 @@ IntStream.range(0, 100).forEach(i -> values[i] = i);
 ## 2. Streams and Parallel Processing
 
 ### Stream Operations
-- ✅ Use streams for declarative and efficient data processing
-- ✅ Choose appropriate terminal operations
+- Use streams for declarative and efficient data processing
+- Choose appropriate terminal operations
 ```java
 // Filtering and mapping
 List<String> activeUserNames = users.stream()
@@ -84,18 +84,42 @@ list.parallelStream()
 ### Thread Management
 - ✅ Use virtual threads for I/O-bound operations
 - ✅ Avoid virtual threads for CPU-intensive tasks
+- ✅ Don't overuse virtual threads - use only when concurrent I/O operations are needed
 ```java
 // Good - I/O bound tasks with virtual threads
-try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
-    for (Request request : requests) {
-        executor.submit(() -> processRequest(request));  // I/O bound
+@Service
+public class EmailService {
+    // Good - Multiple external API calls that can be parallelized
+    public void sendBulkEmails(List<Email> emails) {
+        try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+            for (Email email : emails) {
+                executor.submit(() -> emailClient.send(email));  // I/O bound
+            }
+        }
+    }
+
+    // Bad - Simple operation doesn't need virtual threads
+    public void sendSingleEmail(Email email) {
+        Thread.startVirtualThread(() -> emailClient.send(email));  // Overkill for single operation
     }
 }
 
-// Bad - CPU intensive tasks
-Executors.newVirtualThreadPerTaskExecutor().submit(() -> {
-    performHeavyComputation();  // CPU bound, use platform threads instead
-});
+// Bad - CPU intensive tasks with virtual threads
+public void processData(List<Data> dataList) {
+    try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+        for (Data data : dataList) {
+            executor.submit(() -> {
+                performHeavyComputation(data);  // CPU bound, use platform threads instead
+            });
+        }
+    }
+}
+
+// Good - Simple sequential operation
+public void simpleProcess() {
+    // Don't use virtual threads for simple sequential operations
+    processData();  // Regular method call is sufficient
+}
 ```
 
 ### Structured Concurrency
