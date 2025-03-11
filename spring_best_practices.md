@@ -40,7 +40,7 @@ public class UserService {
 ## 2. Transaction Management
 
 ### Transaction Annotations
-- Use `@Transactional` at service level
+- Don't Use `@Transactional` at service level, use on method level where required
 - Specify read-only when applicable
 - Define proper propagation levels
 ```java
@@ -75,84 +75,8 @@ public void processOrder(Order order) {
 }
 ```
 
-## 3. Virtual Threads (Java 21)
 
-- Use Virtual Threads for I/O-intensive operations
-
-
-### Task Execution
-- Configure Spring's `TaskExecutor` to use Virtual Threads if needed
-- Use for asynchronous tasks
-```java
-@Configuration
-public class AsyncConfig {
-    @Bean
-    public AsyncTaskExecutor applicationTaskExecutor() {
-        return new TaskExecutorAdapter(Executors.newVirtualThreadPerTaskExecutor());
-    }
-}
-```
-
-### Best Practices for Virtual Threads
-- Avoid thread-local variables with long-lived threads
-- Don't use Virtual Threads for CPU-intensive tasks
-- Prefer `@Async` over manual thread management
-```java
-// Good
-@Service
-public class EmailService {
-    @Async
-    public CompletableFuture<Boolean> sendEmailAsync(String to, String subject) {
-        // Email sending logic
-        return CompletableFuture.completedFuture(true);
-    }
-}
-
-// Bad - Manual thread management
-public void sendEmails(List<String> recipients) {
-    for (String recipient : recipients) {
-        Thread.startVirtualThread(() -> {
-            sendEmail(recipient);
-        });
-    }
-}
-```
-
-## 4. Caching
-
-### Cache Configuration
-- Use meaningful cache names
-- Set appropriate TTL
-- Use cache conditions
-```java
-@Cacheable(
-    value = "users",
-    key = "#id",
-    unless = "#result == null",
-    cacheManager = "userCacheManager"
-)
-public User findById(Long id) {
-    return userRepository.findById(id);
-}
-```
-
-### Cache Eviction
-- Clear cache on updates
-- Use appropriate eviction strategy
-```java
-@CacheEvict(value = "users", key = "#user.id")
-public void updateUser(User user) {
-    userRepository.save(user);
-}
-
-@CacheEvict(value = "users", allEntries = true)
-@Scheduled(fixedRateString = "${cache.evict.rate:3600000}")
-public void evictAllCaches() {
-    // Cache eviction logic
-}
-```
-
-## 5. REST API Design
+## 3. REST API Design
 
 ### Controller Structure
 - Use appropriate HTTP methods
@@ -194,7 +118,7 @@ public class UserDTO {
     private String password;
 }
 
-## 6. Project Structure
+## 4. Project Structure
 
 ### Multi-Module Architecture
 - Our project follows a modular architecture with separate API and Service modules

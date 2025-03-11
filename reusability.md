@@ -68,7 +68,9 @@ public class ReportGenerator {
 
 - **Factory Pattern**: Hide complex object creation
 - **Strategy Pattern**: Make algorithms interchangeable
-- **Builder Pattern**: Construct complex objects step by step
+- **Builder Pattern**: Construct complex objects step by step where object immutability is required
+choose write pattern based on use cases and scenarios written in the code
+
 ```java
 // Factory pattern example
 public class ConnectionFactory {
