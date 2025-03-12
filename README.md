@@ -1,25 +1,61 @@
 # Java Code Review Guidelines
 
-This directory contains comprehensive guidelines for Java code reviews. Each aspect is detailed in its own file for better organization and focus.
+This repository contains comprehensive guidelines for Java code reviews, organized in multiple phases.
 
-## Core Guidelines
+## Phase 1: Core Guidelines
 
-1. [Naming and Style](./naming_and_style.md) - Consistent naming conventions and code formatting
-2. [Spring Best Practices](./spring_best_practices.md) - Spring Framework and Spring Boot best practices
-3. [Exception Handling](./exception_handling.md) - Proper exception handling and error management
-4. [Performance](./performance.md) - Performance optimization and efficiency
-5. [Memory Leaks](./memory_leaks.md) - Preventing and detecting memory leaks
-6. [Reusability](./reusability.md) - Code reuse and modular design
-7. [Static Code Analysis](./static_code_analysis.md) - Automated code quality checks
-8. [Validation](./validation.md) - Input validation and data integrity
-9. [Logging](./logging.md) - Logging best practices and configuration
+These guidelines cover fundamental aspects of Java development:
+
+1. **Naming and Style**
+   - File: [naming_and_style.md](naming_and_style.md)
+   - Covers naming conventions, code organization, and formatting
+
+2. **Exception Handling**
+   - File: [exception_handling.md](exception_handling.md)
+   - Best practices for handling and propagating exceptions
+
+3. **Logging**
+   - File: [logging.md](logging.md)
+   - Guidelines for effective logging and monitoring
+
+4. **Code Reusability**
+   - File: [reusability.md](reusability.md)
+   - SOLID principles and design patterns
+
+5. **Static Code Analysis**
+   - File: [static_code_analysis.md](static_code_analysis.md)
+   - Code quality metrics and tools
+
+6. **Validation**
+   - File: [validation.md](validation.md)
+   - Input validation and data integrity
+
+## Phase 2: Advanced Guidelines
+
+These guidelines cover more specialized aspects:
+
+1. **Performance Optimization**
+   - File: [performance.md](performance.md)
+   - Best practices for optimizing Java applications
+
+2. **Spring Framework**
+   - File: [spring_best_practices.md](spring_best_practices.md)
+   - Guidelines specific to Spring Framework development
+
+3. **Memory Management**
+   - File: [memory_leaks.md](memory_leaks.md)
+   - Preventing and detecting memory leaks
 
 ## How to Use
 
-1. For each code review, start with the relevant guideline file based on the primary focus of the review
-2. Use the guidelines provided in each file
-3. Reference specific guidelines when providing feedback
-4. Follow the examples provided in each guide
+1. Start with Phase 1 guidelines for fundamental code quality
+2. Move to Phase 2 for optimization and framework-specific improvements
+3. Apply guidelines progressively during code reviews
+4. Use as reference during development
+
+## Contributing
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
 
 ## Using Cursor for Code Review
 
