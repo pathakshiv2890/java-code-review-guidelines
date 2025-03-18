@@ -14,19 +14,25 @@ These guidelines cover fundamental aspects of Java development:
    - File: [exception_handling.md](exception_handling.md)
    - Best practices for handling and propagating exceptions
 
-3. **Logging**
+3. **Javadoc Guidelines**
+   - File: [javadoc-guidelines.md](javadoc-guidelines.md)
+   - Comprehensive guide for writing effective documentation
+   - Package, class, method, and field documentation
+   - Best practices and examples
+
+4. **Logging**
    - File: [logging.md](logging.md)
    - Guidelines for effective logging and monitoring
 
-4. **Code Reusability**
+5. **Code Reusability**
    - File: [reusability.md](reusability.md)
    - SOLID principles and design patterns
 
-5. **Static Code Analysis**
+6. **Static Code Analysis**
    - File: [static_code_analysis.md](static_code_analysis.md)
    - Code quality metrics and tools
 
-6. **Validation**
+7. **Validation**
    - File: [validation.md](validation.md)
    - Input validation and data integrity
 
