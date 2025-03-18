@@ -125,6 +125,29 @@ public enum UserState {
 }
 ```
 
+### Named Queries
+- Use lowercase for the model name prefix
+- Use camelCase for the query name
+- Be descriptive about the query's purpose
+- Include key filter criteria in the name
+```java
+// Good
+@NamedQuery(name = "user.findByEmail",
+           query = "SELECT u FROM User u WHERE u.email = :email")
+@NamedQuery(name = "order.findPendingByUser",
+           query = "SELECT o FROM Order o WHERE o.user = :user AND o.status = 'PENDING'")
+@NamedQuery(name = "product.findActiveInCategory",
+           query = "SELECT p FROM Product p WHERE p.category = :category AND p.active = true")
+
+// Bad
+@NamedQuery(name = "User.FIND_BY_EMAIL", // Wrong case for model name
+           query = "SELECT u FROM User u WHERE u.email = :email")
+@NamedQuery(name = "Order.q1", // Not descriptive
+           query = "SELECT o FROM Order o WHERE o.user = :user")
+@NamedQuery(name = "PRODUCT_SEARCH", // Missing model name prefix and wrong case
+           query = "SELECT p FROM Product p WHERE p.category = :category")
+```
+
 ### Packages
 - Use lowercase
 - Use reverse domain name convention
