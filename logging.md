@@ -31,7 +31,7 @@ System.out.println("User logged in: " + username); // Use logger instead
 
 ## 2. Log Message Content
 
-- ✅ Include contextual information (IDs, timestamps, user info)
+- ✅ Include contextual information (IDs, timestamps, user info), do not print object.toString()
 - ✅ Use parameterized logging to avoid string concatenation
 - ✅ Include stack traces for exceptions if generic exception is caught
 - ✅ Use ExceptionUtils for better stack trace handling
